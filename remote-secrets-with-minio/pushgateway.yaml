@@ -1,0 +1,19 @@
+apiVersion: monitoring.elostech.cz/v1alpha1
+kind: Pushgateway
+metadata:
+  finalizers: []
+  name: pushgateway
+spec:
+  openshiftRoute:
+    enabled: false
+    host: pushgateway._APP_DOMAIN_
+
+  #nodeSelector:
+  #  node-role.kubernetes.io/monitoring: ""
+
+  #tolerations:
+  #- key: "node-role"
+  #  operator: "Equal"
+  #  value: "monitoring"
+  #  effect: "NoSchedule"
+

@@ -1,0 +1,33 @@
+apiVersion: monitoring.elostech.cz/v1alpha1
+kind: ThanosReceive
+metadata:
+  finalizers: []
+  name: thanos-receive
+spec:
+  objectStoreSecret:
+    name: "thanos-objstore-secret"
+    key: "objstore.yml"
+
+  #nodeSelector:
+  #  node-role.kubernetes.io/monitoring: ""
+
+  #tolerations:
+  #- key: "node-role"
+  #  operator: "Equal"
+  #  value: "monitoring"
+  #  effect: "NoSchedule"
+
+  persistence:
+    enabled: true
+    size: 30Gi
+    storageClass: "managed-premium"
+
+  openshiftRoute:
+    enabled: true
+    host: thanos-receive._APP_DOMAIN_
+
+  resources:
+    requests:
+      memory: 5Gi
+    limits:
+      memory: 12Gi

@@ -1,0 +1,119 @@
+apiVersion: monitoring.elostech.cz/v1alpha1
+kind: Thanos
+metadata:
+  finalizers: []
+  name: thanos
+spec:
+  existingObjstoreSecret: _SECRET_NAME_
+
+  querier:
+    #nodeSelector:
+    #  node-role.kubernetes.io/monitoring: ""
+    #tolerations:
+    #- key: "node-role"
+    #  operator: "Equal"
+    #  value: "monitoring"
+    #  effect: "NoSchedule"
+    replicaLabel: prometheus_replica
+    stores:
+      - dnssrv+_grpc._tcp.thanos-receive.erynis-monitoring.svc.cluster.local
+    securityContext:
+      enabled: false
+      fsGroup: 0
+    grpcTLS:
+      client:
+        secure: false
+    openshiftRoute:
+      enabled: true
+      host: thanos-querier._APP_DOMAIN_
+
+  bucketweb:
+    enabled: true
+    #nodeSelector:
+    #  node-role.kubernetes.io/monitoring: ""
+    #tolerations:
+    #- key: "node-role"
+    #  operator: "Equal"
+    #  value: "monitoring"
+    #  effect: "NoSchedule"
+    securityContext:
+      enabled: false
+      fsGroup: 0
+    openshiftRoute:
+      enabled: true
+      host: thanos-bucketweb._APP_DOMAIN_
+
+  compactor:
+    enabled: true
+    #nodeSelector:
+    #  node-role.kubernetes.io/monitoring: ""
+    #tolerations:
+    #- key: "node-role"
+    #  operator: "Equal"
+    #  value: "monitoring"
+    #  effect: "NoSchedule"
+    securityContext:
+      enabled: false
+      fsGroup: 0
+    persistence:
+      enabled: true
+      size: 20Gi
+      storageClass: "managed-premium"
+
+  storegateway:
+    enabled: true
+    #nodeSelector:
+    #  node-role.kubernetes.io/monitoring: ""
+    #tolerations:
+    #- key: "node-role"
+    #  operator: "Equal"
+    #  value: "monitoring"
+    #  effect: "NoSchedule"
+    securityContext:
+      enabled: false
+      fsGroup: 0
+    persistence:
+      enabled: true
+      size: 20Gi
+      storageClass: "managed-premium"
+
+  ruler:
+    enabled: true
+    #nodeSelector:
+    #  node-role.kubernetes.io/monitoring: ""
+    #tolerations:
+    #- key: "node-role"
+    #  operator: "Equal"
+    #  value: "monitoring"
+    #  effect: "NoSchedule"
+    securityContext:
+      enabled: false
+      fsGroup: 0
+    persistence:
+      enabled: true
+      size: 20Gi
+      storageClass: "managed-premium"
+    alertmanagers:
+      - http://alertmanager-operated.openshift-monitoring.svc.cluster.local:9093
+    config: |-
+      groups:
+        - name: "metamonitoring"
+          rules:
+            - alert: "PrometheusDown"
+              expr: absent(up{prometheus="openshift-monitoring/k8s",service="prometheus-k8s"})
+
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+  minio:
+    enabled: true
+    existingSecret: _SECRET_NAME_
+    openshiftRoute:
+      enabled: true
+      host: thanos-minio._APP_DOMAIN_
+    defaultBuckets: "thanos"
+    persistence:
+      enabled: true
+      size: 100Gi

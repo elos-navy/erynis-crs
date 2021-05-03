@@ -1,0 +1,88 @@
+apiVersion: monitoring.elostech.cz/v1alpha1
+kind: Grafana
+metadata:
+  finalizers: []
+  name: grafana
+spec:
+  injector:
+    enabled: false
+    image:
+      registry: quay.io
+      repository: elostech/grafana-injector
+      tag: v0.72
+    apiEndpoints:
+      openshift:
+        url: ""
+        port: 6443
+      grafana:
+        url: http://localhost
+        port: 3000
+      git:
+        url: ""
+        protocol: https
+    credentials:
+      openshift:
+        user: ""
+        pass: ""
+      grafana:
+        user: ""
+        pass: ""
+      git:
+        user: ""
+        pass: ""
+    timing:
+     startDelay: 30
+     interval: 300
+    projects_labels_selector: monitoring.elostech.cz/create-grafana-folder=true
+    pruneFolders: true
+
+  AzureADOauth:
+    enabled: false
+    clientId: ""
+    clientSecret: ""
+    tenantId: ""
+
+  admin:
+    user: admin
+    password: ""
+
+  securityContext:
+    enabled: false
+    fsGroup: 0
+
+  persistence:
+    enabled: false
+
+  datasources:
+    config: |
+      apiVersion: 1
+      datasources:
+        - name: Thanos
+          type: prometheus
+          access: proxy
+          url: http://thanos-querier-frontend.erynis-monitoring.svc.cluster.local:9090
+          editable: false
+
+  openshiftRoute:
+    enabled: true
+    host: "grafana._APP_DOMAIN_"
+
+  #nodeSelector:
+  #  node-role.kubernetes.io/monitoring: ""
+
+  #tolerations:
+  #- key: "node-role"
+  #  operator: "Equal"
+  #  value: "monitoring"
+  #  effect: "NoSchedule"
+
+  #tolerations:
+  #- key: infra
+  #  value: reserved
+  #  effect: NoSchedule
+  #- key: infra
+  #  value: reserved
+  #  effect: NoExecute
+
+  metrics:
+    enabled: true
