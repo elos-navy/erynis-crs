@@ -27,6 +27,13 @@ spec:
       enabled: true
       host: thanos-querier._APP_DOMAIN_
 
+  querierfrontend:
+    enabled: true
+    openshiftRoute:
+      enabled: true
+      httpsEnabled: true
+      host: thanos-querier-frontend._APP_DOMAIN_
+
   bucketweb:
     enabled: true
     #nodeSelector:
