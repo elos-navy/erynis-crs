@@ -1,0 +1,5 @@
+export APP_DOMAIN='apps.openshift.elostech.cz'
+export NAMESPACE='erynis-monitoring'
+
+export OBJSTORE_SECRET_NAME=''
+export MINIO_SECRET_NAME=''

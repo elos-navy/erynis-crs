@@ -60,12 +60,12 @@ spec:
         - name: Thanos
           type: prometheus
           access: proxy
-          url: http://thanos-querier-frontend.erynis-monitoring.svc.cluster.local:9090
+          url: http://thanos-querier-frontend.${NAMESPACE}.svc.cluster.local:9090
           editable: false
 
   openshiftRoute:
     enabled: true
-    host: "grafana._APP_DOMAIN_"
+    host: "grafana.${APP_DOMAIN}"
 
   #nodeSelector:
   #  node-role.kubernetes.io/monitoring: ""

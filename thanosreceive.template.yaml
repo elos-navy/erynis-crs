@@ -24,7 +24,7 @@ spec:
 
   openshiftRoute:
     enabled: true
-    host: thanos-receive._APP_DOMAIN_
+    host: thanos-receive.${APP_DOMAIN}
 
   resources:
     requests:

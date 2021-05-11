@@ -6,7 +6,7 @@ metadata:
 spec:
   openshiftRoute:
     enabled: false
-    host: pushgateway._APP_DOMAIN_
+    host: pushgateway.${APP_DOMAIN}
 
   #nodeSelector:
   #  node-role.kubernetes.io/monitoring: ""

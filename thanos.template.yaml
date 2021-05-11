@@ -4,7 +4,7 @@ metadata:
   finalizers: []
   name: thanos
 spec:
-  existingObjstoreSecret: _SECRET_NAME_
+  existingObjstoreSecret: ${OBJSTORE_SECRET_NAME}
 
   querier:
     #nodeSelector:
@@ -16,7 +16,7 @@ spec:
     #  effect: "NoSchedule"
     replicaLabel: prometheus_replica
     stores:
-      - dnssrv+_grpc._tcp.thanos-receive.erynis-monitoring.svc.cluster.local
+      - dnssrv+_grpc._tcp.thanos-receive.${NAMESPACE}.svc.cluster.local
     securityContext:
       enabled: false
       fsGroup: 0
@@ -25,14 +25,14 @@ spec:
         secure: false
     openshiftRoute:
       enabled: true
-      host: thanos-querier._APP_DOMAIN_
+      host: thanos-querier.${APP_DOMAIN}
 
   querierfrontend:
     enabled: true
     openshiftRoute:
       enabled: true
       httpsEnabled: true
-      host: thanos-querier-frontend._APP_DOMAIN_
+      host: thanos-querier-frontend.${APP_DOMAIN}
 
   bucketweb:
     enabled: true
@@ -48,7 +48,7 @@ spec:
       fsGroup: 0
     openshiftRoute:
       enabled: true
-      host: thanos-bucketweb._APP_DOMAIN_
+      host: thanos-bucketweb.${APP_DOMAIN}
 
   compactor:
     enabled: true
@@ -116,10 +116,10 @@ spec:
 
   minio:
     enabled: true
-    existingSecret: _SECRET_NAME_
+    existingSecret: ${MINIO_SECRET_NAME}
     openshiftRoute:
       enabled: true
-      host: thanos-minio._APP_DOMAIN_
+      host: thanos-minio.${APP_DOMAIN}
     defaultBuckets: "thanos"
     persistence:
       enabled: true
