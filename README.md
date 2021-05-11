@@ -10,7 +10,6 @@ vim config
 Then generate target CRs from templates:
 ```
 source config
-envsubst < grafana.yaml
 
 envsubst < grafana.template.yaml > grafana.yaml
 envsubst < pushgateway.template.yaml > pushgateway.yaml
