@@ -1,5 +1,9 @@
 export APP_DOMAIN='apps.openshift.elostech.cz'
 export NAMESPACE='erynis-monitoring'
 
-export OBJSTORE_SECRET_NAME=''
-export MINIO_SECRET_NAME=''
+# Use this, if objectstore and minio keys are defined in separate
+# secrets that already exist on cluster.
+# If secrets will not be used (POC/demo), both objectstore and minio keys
+# can be defined directly in CRs (see https://github.com/elos-navy/erynis-public-crs/blob/master/README.md).
+export OBJSTORE_SECRET_NAME='objstore-secret'
+export MINIO_SECRET_NAME='minio-secret'
