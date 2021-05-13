@@ -4,7 +4,34 @@ metadata:
   finalizers: []
   name: thanos
 spec:
-  existingObjstoreSecret: ${OBJSTORE_SECRET_NAME}
+
+  ### Object Storage
+
+  # Directly defined here in CR.
+  #
+  # Minio:
+  objstoreConfig: |-
+    type: s3
+    config:
+      bucket: thanos
+      endpoint: minio.erynis-monitoring.svc.cluster.local:9000
+      access_key: minio
+      secret_key: password123
+      insecure: true
+
+  # Azure:
+  #objstoreConfig: |-
+  #  type: AZURE
+  #  config:
+  #    storage_account: "..."
+  #    storage_account_key: "..."
+  #    container: "erynis-azure-blob"
+  #    endpoint: "blob.core.windows.net"
+  #    max_retries: 0
+
+  # If external secret is used, uncomment this instead of objstoreConfig:
+  #existingObjstoreSecret: ${OBJSTORE_SECRET_NAME}
+
 
   querier:
     #nodeSelector:
@@ -63,9 +90,9 @@ spec:
       enabled: false
       fsGroup: 0
     persistence:
-      enabled: true
+      enabled: ${PERSISTENCE_ENABLED}
       size: 20Gi
-      storageClass: "managed-premium"
+      storageClass: ${STORAGE_CLASS}
 
   storegateway:
     enabled: true
@@ -80,9 +107,9 @@ spec:
       enabled: false
       fsGroup: 0
     persistence:
-      enabled: true
+      enabled: ${PERSISTENCE_ENABLED}
       size: 20Gi
-      storageClass: "managed-premium"
+      storageClass: ${STORAGE_CLASS}
 
   ruler:
     enabled: true
@@ -97,9 +124,9 @@ spec:
       enabled: false
       fsGroup: 0
     persistence:
-      enabled: true
+      enabled: ${PERSISTENCE_ENABLED}
       size: 20Gi
-      storageClass: "managed-premium"
+      storageClass: ${STORAGE_CLASS}
     alertmanagers:
       - http://alertmanager-operated.openshift-monitoring.svc.cluster.local:9093
     config: |-
@@ -116,11 +143,23 @@ spec:
 
   minio:
     enabled: true
-    existingSecret: ${MINIO_SECRET_NAME}
     openshiftRoute:
       enabled: true
       host: thanos-minio.${APP_DOMAIN}
     defaultBuckets: "thanos"
     persistence:
-      enabled: true
+      enabled: ${PERSISTENCE_ENABLED}
       size: 100Gi
+      storageClass: ${STORAGE_CLASS}
+
+    # Minio Access Keys
+    #
+    # Directly in CR:
+    accessKey:
+      password: "minio"
+    secretKey:
+      password: "password123"
+
+    # Or stored in existing secret:
+    #existingSecret: ${MINIO_SECRET_NAME}
+

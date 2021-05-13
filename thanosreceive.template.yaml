@@ -18,9 +18,9 @@ spec:
   #  effect: "NoSchedule"
 
   persistence:
-    enabled: true
+    enabled: ${PERSISTENCE_ENABLED}
     size: 30Gi
-    storageClass: "managed-premium"
+    storageClass: ${STORAGE_CLASS}
 
   openshiftRoute:
     enabled: true
