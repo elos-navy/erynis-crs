@@ -17,6 +17,13 @@ envsubst < thanosreceive.template.yaml > thanosreceive.yaml
 envsubst < thanos.template.yaml > thanos.yaml
 ```
 
+And check/change generated CRs to match target infrastructure:
+```
+vim grafana.yaml
+vim pushgateway.yaml
+vim thanosreceive.yaml
+vim thanos.yaml
+```
 
 ## Thanos Resource
 
