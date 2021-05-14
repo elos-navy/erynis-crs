@@ -4,6 +4,9 @@ metadata:
   finalizers: []
   name: pushgateway
 spec:
+  image:
+    image: prom/pushgateway:v1.2.0
+
   openshiftRoute:
     enabled: false
     host: pushgateway.${APP_DOMAIN}

@@ -4,12 +4,13 @@ metadata:
   finalizers: []
   name: grafana
 spec:
+  image:
+    image: docker.io/bitnami/grafana:7.5.6
+
   injector:
     enabled: false
     image:
-      registry: quay.io
-      repository: elostech/grafana-injector
-      tag: v0.72
+      image: quay.io/elostech/grafana-injector:v0.72
     apiEndpoints:
       openshift:
         url: ""
