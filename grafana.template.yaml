@@ -37,6 +37,11 @@ spec:
     projects_labels_selector: monitoring.elostech.cz/create-grafana-folder=true
     pruneFolders: true
 
+  oauthProxy:
+    enabled: true
+    image:
+      image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:d9601f2660b45d005ba9526ea6e87cb837308d45a92c71c4ea3412e27ce0b0ec
+
   AzureADOauth:
     enabled: false
     clientId: ""
