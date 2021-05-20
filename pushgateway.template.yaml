@@ -11,12 +11,22 @@ spec:
     enabled: false
     host: pushgateway.${APP_DOMAIN}
 
+  # Run on infra nodes:
+  #nodeSelector:
+  #  node-role.kubernetes.io/infra: ""
+  #tolerations:
+  #- key: infra
+  #  value: reserved
+  #  effect: NoSchedule
+  #- key: infra
+  #  value: reserved
+  #  effect: NoExecute
+
+  # Run on dedicated "monitoring" nodes:
   #nodeSelector:
   #  node-role.kubernetes.io/monitoring: ""
-
   #tolerations:
   #- key: "node-role"
   #  operator: "Equal"
   #  value: "monitoring"
   #  effect: "NoSchedule"
-

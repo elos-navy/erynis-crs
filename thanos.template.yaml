@@ -47,6 +47,18 @@ spec:
   ###
 
   querier:
+    # Run on infra nodes:
+    #nodeSelector:
+    #  node-role.kubernetes.io/infra: ""
+    #tolerations:
+    #- key: infra
+    #  value: reserved
+    #  effect: NoSchedule
+    #- key: infra
+    #  value: reserved
+    #  effect: NoExecute
+  
+    # Run on dedicated "monitoring" nodes:
     #nodeSelector:
     #  node-role.kubernetes.io/monitoring: ""
     #tolerations:
@@ -54,6 +66,7 @@ spec:
     #  operator: "Equal"
     #  value: "monitoring"
     #  effect: "NoSchedule"
+
     replicaLabel: prometheus_replica
     stores:
       - dnssrv+_grpc._tcp.thanos-receive.${NAMESPACE}.svc.cluster.local
@@ -74,8 +87,18 @@ spec:
       httpsEnabled: true
       host: thanos-querier-frontend.${APP_DOMAIN}
 
-  bucketweb:
-    enabled: true
+    # Run on infra nodes:
+    #nodeSelector:
+    #  node-role.kubernetes.io/infra: ""
+    #tolerations:
+    #- key: infra
+    #  value: reserved
+    #  effect: NoSchedule
+    #- key: infra
+    #  value: reserved
+    #  effect: NoExecute
+  
+    # Run on dedicated "monitoring" nodes:
     #nodeSelector:
     #  node-role.kubernetes.io/monitoring: ""
     #tolerations:
@@ -83,6 +106,30 @@ spec:
     #  operator: "Equal"
     #  value: "monitoring"
     #  effect: "NoSchedule"
+
+  bucketweb:
+    enabled: true
+
+    # Run on infra nodes:
+    #nodeSelector:
+    #  node-role.kubernetes.io/infra: ""
+    #tolerations:
+    #- key: infra
+    #  value: reserved
+    #  effect: NoSchedule
+    #- key: infra
+    #  value: reserved
+    #  effect: NoExecute
+  
+    # Run on dedicated "monitoring" nodes:
+    #nodeSelector:
+    #  node-role.kubernetes.io/monitoring: ""
+    #tolerations:
+    #- key: "node-role"
+    #  operator: "Equal"
+    #  value: "monitoring"
+    #  effect: "NoSchedule"
+
     securityContext:
       enabled: false
       fsGroup: 0
@@ -92,6 +139,19 @@ spec:
 
   compactor:
     enabled: true
+
+    # Run on infra nodes:
+    #nodeSelector:
+    #  node-role.kubernetes.io/infra: ""
+    #tolerations:
+    #- key: infra
+    #  value: reserved
+    #  effect: NoSchedule
+    #- key: infra
+    #  value: reserved
+    #  effect: NoExecute
+  
+    # Run on dedicated "monitoring" nodes:
     #nodeSelector:
     #  node-role.kubernetes.io/monitoring: ""
     #tolerations:
@@ -99,6 +159,7 @@ spec:
     #  operator: "Equal"
     #  value: "monitoring"
     #  effect: "NoSchedule"
+
     securityContext:
       enabled: false
       fsGroup: 0
@@ -109,6 +170,19 @@ spec:
 
   storegateway:
     enabled: true
+
+    # Run on infra nodes:
+    #nodeSelector:
+    #  node-role.kubernetes.io/infra: ""
+    #tolerations:
+    #- key: infra
+    #  value: reserved
+    #  effect: NoSchedule
+    #- key: infra
+    #  value: reserved
+    #  effect: NoExecute
+  
+    # Run on dedicated "monitoring" nodes:
     #nodeSelector:
     #  node-role.kubernetes.io/monitoring: ""
     #tolerations:
@@ -116,6 +190,7 @@ spec:
     #  operator: "Equal"
     #  value: "monitoring"
     #  effect: "NoSchedule"
+
     securityContext:
       enabled: false
       fsGroup: 0
@@ -127,6 +202,18 @@ spec:
   ruler:
     enabled: true
 
+    # Run on infra nodes:
+    #nodeSelector:
+    #  node-role.kubernetes.io/infra: ""
+    #tolerations:
+    #- key: infra
+    #  value: reserved
+    #  effect: NoSchedule
+    #- key: infra
+    #  value: reserved
+    #  effect: NoExecute
+  
+    # Run on dedicated "monitoring" nodes:
     #nodeSelector:
     #  node-role.kubernetes.io/monitoring: ""
     #tolerations:
@@ -134,6 +221,7 @@ spec:
     #  operator: "Equal"
     #  value: "monitoring"
     #  effect: "NoSchedule"
+
     securityContext:
       enabled: false
       fsGroup: 0
@@ -180,4 +268,24 @@ spec:
 
     # Or stored in existing secret:
     #existingSecret: ${MINIO_SECRET_NAME}
+
+    # Run on infra nodes:
+    #nodeSelector:
+    #  node-role.kubernetes.io/infra: ""
+    #tolerations:
+    #- key: infra
+    #  value: reserved
+    #  effect: NoSchedule
+    #- key: infra
+    #  value: reserved
+    #  effect: NoExecute
+  
+    # Run on dedicated "monitoring" nodes:
+    #nodeSelector:
+    #  node-role.kubernetes.io/monitoring: ""
+    #tolerations:
+    #- key: "node-role"
+    #  operator: "Equal"
+    #  value: "monitoring"
+    #  effect: "NoSchedule"
 

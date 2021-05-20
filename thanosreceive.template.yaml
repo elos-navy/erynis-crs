@@ -11,9 +11,20 @@ spec:
     name: "thanos-objstore-secret"
     key: "objstore.yml"
 
+  # Run on infra nodes:
+  #nodeSelector:
+  #  node-role.kubernetes.io/infra: ""
+  #tolerations:
+  #- key: infra
+  #  value: reserved
+  #  effect: NoSchedule
+  #- key: infra
+  #  value: reserved
+  #  effect: NoExecute
+
+  # Run on dedicated "monitoring" nodes:
   #nodeSelector:
   #  node-role.kubernetes.io/monitoring: ""
-
   #tolerations:
   #- key: "node-role"
   #  operator: "Equal"
