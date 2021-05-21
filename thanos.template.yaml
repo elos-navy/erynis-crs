@@ -140,6 +140,15 @@ spec:
   compactor:
     enabled: true
 
+    # Resolution and Retention flags
+    retentionResolutionRaw: 30d
+    retentionResolution5m: 30d
+    retentionResolution1h: 5y
+
+    # Minimum age of fresh (non-compacted) blocks
+    # before they are being processed
+    consistencyDelay: 30m
+
     # Run on infra nodes:
     #nodeSelector:
     #  node-role.kubernetes.io/infra: ""
