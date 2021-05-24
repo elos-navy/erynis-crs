@@ -4,8 +4,8 @@ metadata:
   finalizers: []
   name: thanos-receive
 spec:
-  image:
-    image: quay.io/thanos/thanos:v0.15.0
+  #image:
+  #  image: quay.io/thanos/thanos:v0.20.2
 
   objectStoreSecret:
     name: "thanos-objstore-secret"

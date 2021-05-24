@@ -11,7 +11,7 @@ spec:
   # Which image to use for all thanos components.
   # 
   #image:
-  #  image: quay.io/thanos/thanos:v0.15.0
+  #  image: quay.io/thanos/thanos:v0.20.2
 
 
   ### Object Store
