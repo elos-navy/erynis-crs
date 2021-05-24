@@ -40,6 +40,11 @@ spec:
     enabled: true
     host: thanos-receive.${APP_DOMAIN}
 
+  # Always use "receive_" for all labels defined here.
+  # https://thanos.io/tip/thanos/storage.md/#external-labels
+  labels:
+    - receive_stack="erynis"
+
   resources:
     requests:
       memory: 5Gi
