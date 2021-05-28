@@ -239,7 +239,7 @@ spec:
       size: 20Gi
       storageClass: ${STORAGE_CLASS}
     alertmanagers:
-      - http://alertmanager-operated.openshift-monitoring.svc.cluster.local:9093
+      - http://alertmanager-main.openshift-monitoring.svc.cluster.local:9094
     config: |-
       groups:
         - name: "metamonitoring"
