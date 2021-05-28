@@ -30,3 +30,12 @@ spec:
   #  operator: "Equal"
   #  value: "monitoring"
   #  effect: "NoSchedule"
+
+  resources:
+    limits:
+      cpu: 200m
+      memory: 200Mi
+   requests:
+     cpu: 100m
+     memory: 30Mi
+

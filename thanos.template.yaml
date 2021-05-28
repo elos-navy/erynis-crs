@@ -80,6 +80,14 @@ spec:
       enabled: true
       host: thanos-querier.${APP_DOMAIN}
 
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1Gi
+      requests:
+        cpu: 10m
+        memory: 128Mi
+  
   querierfrontend:
     enabled: true
     openshiftRoute:
@@ -106,6 +114,14 @@ spec:
     #  operator: "Equal"
     #  value: "monitoring"
     #  effect: "NoSchedule"
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1Gi
+      requests:
+        cpu: 10m
+        memory: 128Mi
 
   bucketweb:
     enabled: true
@@ -136,6 +152,14 @@ spec:
     openshiftRoute:
       enabled: true
       host: thanos-bucketweb.${APP_DOMAIN}
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1Gi
+      requests:
+        cpu: 10m
+        memory: 128Mi
 
   compactor:
     enabled: true
@@ -172,10 +196,20 @@ spec:
     securityContext:
       enabled: false
       fsGroup: 0
+
     persistence:
       enabled: ${PERSISTENCE_ENABLED}
       size: 20Gi
       storageClass: ${STORAGE_CLASS}
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1Gi
+      requests:
+        cpu: 10m
+        memory: 128Mi
+
 
   storegateway:
     enabled: true
@@ -203,10 +237,19 @@ spec:
     securityContext:
       enabled: false
       fsGroup: 0
+
     persistence:
       enabled: ${PERSISTENCE_ENABLED}
       size: 20Gi
       storageClass: ${STORAGE_CLASS}
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 5Gi
+      requests:
+        cpu: 10m
+        memory: 128Mi
 
   ruler:
     enabled: true
@@ -234,10 +277,12 @@ spec:
     securityContext:
       enabled: false
       fsGroup: 0
+
     persistence:
       enabled: ${PERSISTENCE_ENABLED}
       size: 20Gi
       storageClass: ${STORAGE_CLASS}
+
     alertmanagers:
       - http://alertmanager-main.openshift-monitoring.svc.cluster.local:9094
     config: |-
@@ -246,6 +291,14 @@ spec:
           rules:
             - alert: "PrometheusDown"
               expr: absent(up{prometheus="openshift-monitoring/k8s",service="prometheus-k8s"})
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 5Gi
+      requests:
+        cpu: 10m
+        memory: 128Mi
 
   metrics:
     enabled: true
@@ -297,4 +350,12 @@ spec:
     #  operator: "Equal"
     #  value: "monitoring"
     #  effect: "NoSchedule"
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 5Gi
+      requests:
+        cpu: 10m
+        memory: 128Mi
 
