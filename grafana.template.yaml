@@ -42,11 +42,15 @@ spec:
     image:
       image: quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:d9601f2660b45d005ba9526ea6e87cb837308d45a92c71c4ea3412e27ce0b0ec
 
-  AzureADOauth:
-    enabled: false
-    clientId: ""
-    clientSecret: ""
-    tenantId: ""
+  GenericOAuth:
+  enabled: false
+  name:
+  clientId:
+  clientSecret:
+  authUrl:
+  tokenUrl:
+  apiUrl:
+  TlsSkipVerifyInsecure: false
 
   admin:
     user: admin

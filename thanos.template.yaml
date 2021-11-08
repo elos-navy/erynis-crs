@@ -24,7 +24,7 @@ spec:
     type: s3
     config:
       bucket: thanos
-      endpoint: minio.erynis-monitoring.svc.cluster.local:9000
+      endpoint: thanos-minio.erynis-monitoring.svc.cluster.local:9000
       access_key: minio
       secret_key: password123
       insecure: true
@@ -205,7 +205,7 @@ spec:
     resources:
       limits:
         cpu: 500m
-        memory: 1Gi
+        memory: 2Gi
       requests:
         cpu: 10m
         memory: 128Mi
